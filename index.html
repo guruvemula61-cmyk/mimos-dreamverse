@@ -1,69 +1,115 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff65b9">
+  <meta name="description" content="Enter Mimo's Dreamverse — a magical world of baby Mimo, glowing stars, wishes, flowers and surprises.">
+
   <title>Mimo's Dreamverse ✨</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
-<body>
-  <canvas id="starfield"></canvas>
 
+<body>
+  <!-- Animated background -->
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- Navigation -->
   <header class="navbar">
     <a class="logo" href="#home">✨ Mimo's Dreamverse</a>
-    <nav>
+
+    <nav aria-label="Main navigation">
       <a href="#home">Home</a>
       <a href="#meet">Meet Mimo</a>
+      <a href="#garden">Dream Garden</a>
       <a href="#gift">Dream Gift</a>
-      <button id="nightToggle">🌙 Night</button>
+      <button id="nightToggle" type="button" aria-pressed="false">
+        🌙 Night
+      </button>
     </nav>
   </header>
 
   <main>
+    <!-- HERO SECTION -->
     <section class="hero" id="home">
       <div class="hero-text">
         <p class="eyebrow">✨ A little friend from a magical universe</p>
-        <h1>Meet <span>Mimo</span><br>The Star Keeper!</h1>
+
+        <h1>
+          Meet <span>Mimo</span><br>
+          The Star Keeper!
+        </h1>
+
         <p class="intro">
           A fluffy little friend carrying one glowing star
           and a universe full of magic, kindness and dreams. 💖
         </p>
+
         <div class="actions">
-          <a class="button primary" href="#gift">Open Your Gift 🎁</a>
-          <button class="button secondary" id="helloBtn">Say Hello 👋</button>
+          <a class="button primary" href="#gift">
+            Open Your Gift 🎁
+          </a>
+
+          <button class="button secondary" id="helloBtn" type="button">
+            Say Hello 👋
+          </button>
         </div>
+
         <p id="helloMessage" aria-live="polite">
           Psst... Mimo has a surprise for you!
         </p>
+
         <div class="stats">
-          <div><strong>∞</strong><span>Dreams</span></div>
-          <div><strong>⭐</strong><span>Magic</span></div>
-          <div><strong>💗</strong><span>Kindness</span></div>
+          <div>
+            <strong>∞</strong>
+            <span>Dreams</span>
+          </div>
+          <div>
+            <strong>⭐</strong>
+            <span>Magic</span>
+          </div>
+          <div>
+            <strong>💗</strong>
+            <span>Kindness</span>
+          </div>
         </div>
       </div>
 
       <div class="character-area">
-        <span class="floating star-one">⭐</span>
-        <span class="floating heart">💖</span>
-        <span class="floating moon">🌙</span>
-        <button class="baby-card" id="mimoCard" aria-label="Tap Mimo for magic">
-          <img src="assets/mimo-star-baby.png"
-               alt="Mimo, a fluffy pink magical creature holding a glowing star">
-          <span class="image-label">Tap me for magic ✨</span>
+        <span class="floating star-one" aria-hidden="true">⭐</span>
+        <span class="floating heart" aria-hidden="true">💖</span>
+        <span class="floating moon" aria-hidden="true">🌙</span>
+        <span class="floating sparkle" aria-hidden="true">✨</span>
+
+        <button class="baby-card" id="mimoCard" type="button"
+                aria-label="Tap Mimo for a magical message">
+          <img
+            src="assets/mimo-star-baby.png"
+            alt="Mimo, a fluffy pink magical baby creature holding a glowing rainbow star"
+          >
+          <span class="image-label">Tap Mimo for magic ✨</span>
         </button>
-        <span class="floating sparkle">✨</span>
       </div>
     </section>
 
+    <!-- MEET MIMO -->
     <section class="section" id="meet">
       <p class="eyebrow center">YOUR NEW LITTLE FRIEND</p>
-      <h2 class="section-title">Small Fluff.<br><span>Big Magic.</span></h2>
+
+      <h2 class="section-title">
+        Small Fluff.<br>
+        <span>Big Magic.</span>
+      </h2>
+
       <p class="section-intro">
         Mimo collects kind thoughts and turns them into tiny stars.
+        Every little act of kindness makes the Dreamverse brighter.
       </p>
 
       <div class="features">
@@ -72,11 +118,13 @@
           <h3>A Heart of Fluff</h3>
           <p>Mimo's favourite mission is making people smile.</p>
         </article>
+
         <article class="feature blue">
           <div class="feature-icon">🌟</div>
           <h3>The Star Keeper</h3>
           <p>A magical star filled with hope, wonder and happiness.</p>
         </article>
+
         <article class="feature yellow">
           <div class="feature-icon">☁️</div>
           <h3>The Dream Traveller</h3>
@@ -85,45 +133,133 @@
       </div>
     </section>
 
+    <!-- INTERACTIVE DREAM GARDEN -->
+    <section class="section dream-garden" id="garden">
+      <p class="eyebrow center">A LITTLE WORLD OF WONDER</p>
+
+      <h2 class="section-title">
+        Mimo's <span>Dream Garden</span> 🌸
+      </h2>
+
+      <p class="section-intro">
+        Tap the garden to grow magical flowers.
+        Find all five hidden stars to unlock Mimo's secret gift!
+      </p>
+
+      <div class="garden-stats">
+        <span>🌸 Flowers: <strong id="flowerCount">0</strong></span>
+        <span>⭐ Stars: <strong id="starCount">0 / 5</strong></span>
+      </div>
+
+      <div class="garden-area" id="gardenArea"
+           aria-label="Interactive magical garden">
+        <div class="garden-hill hill-one" aria-hidden="true"></div>
+        <div class="garden-hill hill-two" aria-hidden="true"></div>
+        <span class="garden-hint">Tap the garden to grow flowers ✨</span>
+      </div>
+
+      <p class="garden-message" id="gardenMessage" aria-live="polite">
+        Mimo is waiting for your magic!
+      </p>
+
+      <button class="button primary" id="gardenReset" type="button">
+        Grow a New Garden 🌱
+      </button>
+
+      <div class="treasure-box" id="treasureBox" hidden>
+        <div class="treasure-icon">🎁</div>
+
+        <h3>You Found Every Star!</h3>
+
+        <p>
+          Mimo's secret message: You make the world more magical. 💖
+        </p>
+
+        <button class="button secondary" id="claimGift" type="button">
+          Open Secret Gift ✨
+        </button>
+
+        <p id="gardenGiftMessage" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- PERSONAL WISH GIFT -->
     <section class="section gift-section" id="gift">
       <div class="gift-panel">
         <div class="gift-image">
-          <img src="assets/mimo-star-baby.png" alt="Mimo holding a magical glowing star">
+          <img
+            src="assets/mimo-star-baby.png"
+            alt="Mimo holding a magical glowing star"
+            loading="lazy"
+          >
         </div>
+
         <div class="gift-content">
           <p class="eyebrow">A LITTLE GIFT FOR YOU</p>
-          <h2>Your Pocketful<br><span>of Magic 🎁</span></h2>
+
+          <h2>
+            Your Pocketful<br>
+            <span>of Magic 🎁</span>
+          </h2>
+
           <p>
             Write a wish and send it into Mimo's magical universe.
             Your little moment deserves a little sparkle.
           </p>
+
           <label for="wishInput">Make a little wish</label>
+
           <div class="wish-row">
-            <input id="wishInput" maxlength="100"
-                   placeholder="I wish for more kindness...">
-            <button class="button primary" id="wishBtn">Send ✨</button>
+            <input
+              id="wishInput"
+              type="text"
+              maxlength="100"
+              placeholder="I wish for more kindness..."
+              autocomplete="off"
+            >
+
+            <button class="button primary" id="wishBtn" type="button">
+              Send ✨
+            </button>
           </div>
-          <p id="wishMessage" aria-live="polite"></p>
+
+          <p id="wishMessage" aria-live="polite">
+            Your magical wish is waiting to be written. 💗
+          </p>
         </div>
       </div>
     </section>
 
+    <!-- FINAL SURPRISE -->
     <section class="final-section">
-      <div class="big-star">✦</div>
+      <div class="big-star" aria-hidden="true">✦</div>
+
       <p class="eyebrow">A SECRET MESSAGE FROM MIMO</p>
-      <h2>You make this universe<br><span>more magical.</span></h2>
-      <button class="button white-button" id="surpriseBtn">
+
+      <h2>
+        You make this universe<br>
+        <span>more magical.</span>
+      </h2>
+
+      <p>
+        A little reminder that kindness, hope and imagination matter.
+      </p>
+
+      <button class="button white-button" id="surpriseBtn" type="button">
         Open Your Surprise 🎁
       </button>
+
       <p id="surpriseMessage" aria-live="polite"></p>
     </section>
   </main>
 
+  <!-- Footer -->
   <footer>
     <span>Made with code, kindness and stardust ✨</span>
     <a href="#home">Back to the stars ↑</a>
   </footer>
 
+  <!-- Interactive notifications -->
   <div id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
