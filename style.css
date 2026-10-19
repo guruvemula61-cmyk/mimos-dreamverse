@@ -1,553 +1,1501 @@
 
+/* =========================================
+   MIMO'S DREAMVERSE
+   Complete Responsive Dreamy Website CSS
+   ========================================= */
+
+/* ---------- 1. Reset & Design Tokens ---------- */
+
 :root {
-  --ink: #35134f;
-  --pink: #ff56b4;
-  --purple: #9257ff;
-  --muted: #755c86;
+  --pink: #ff83bd;
+  --pink-dark: #ec579d;
+  --pink-light: #ffe5f2;
+  --purple: #a98aff;
+  --purple-dark: #7954ce;
+  --lavender: #eee7ff;
+  --blue: #bdeaff;
+  --yellow: #ffe58f;
+  --mint: #c8f7df;
+  --white: #ffffff;
+  --text: #493958;
+  --muted: #806d8d;
+  --surface: rgba(255, 255, 255, 0.76);
+  --surface-solid: #fffaff;
+  --border: rgba(169, 138, 255, 0.22);
+  --shadow: 0 18px 50px rgba(119, 80, 157, 0.12);
+  --radius-lg: 30px;
+  --radius-md: 20px;
+  --radius-sm: 14px;
+  --content-width: 1160px;
 }
 
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 90px;
+  scroll-padding-top: 100px;
 }
 
 body {
-  margin: 0;
-  color: var(--ink);
-  font-family: "Nunito", sans-serif;
-  background: linear-gradient(135deg, #ffe0f1, #e7ddff, #d7f8ff, #fff0c8);
-  background-size: 300% 300%;
-  animation: backgroundMove 18s ease infinite;
+  min-height: 100vh;
   overflow-x: hidden;
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 8% 8%, rgba(255, 205, 232, 0.72), transparent 34%),
+    radial-gradient(ellipse at 92% 18%, rgba(209, 195, 255, 0.62), transparent 32%),
+    radial-gradient(ellipse at 48% 80%, rgba(200, 242, 255, 0.5), transparent 38%),
+    linear-gradient(180deg, #fff8fd 0%, #fbf7ff 48%, #fff9fd 100%);
+  font-family: "Nunito", sans-serif;
+  line-height: 1.7;
+  transition: background 0.4s ease, color 0.4s ease;
 }
 
-body.night {
-  --ink: #fff5ff;
-  --muted: #e0cbea;
-  background: linear-gradient(135deg, #160c35, #3c1c63, #102d52);
+body,
+button,
+input {
+  font-family: "Nunito", sans-serif;
 }
 
-@keyframes backgroundMove {
-  50% { background-position: 100% 100%; }
+button,
+input {
+  font-size: inherit;
 }
 
-#starfield {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
+button {
+  -webkit-tap-highlight-color: transparent;
 }
 
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  padding: 15px 5%;
-  background: #fff9ffcc;
-  backdrop-filter: blur(15px);
-  border-bottom: 1px solid #ffffff;
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--purple-dark);
+  outline-offset: 4px;
 }
 
-.night .navbar {
-  background: #21113ecc;
-}
-
-.logo {
-  font: 700 1.35rem "Fredoka", sans-serif;
-  text-decoration: none;
-  color: var(--ink);
-}
-
-nav {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-
-nav a {
-  color: var(--ink);
-  text-decoration: none;
-  font-weight: 800;
-}
-
-nav a:hover {
-  color: var(--pink);
-}
-
-button, .button {
-  font: inherit;
-  font-weight: 900;
-  cursor: pointer;
-  border: none;
-}
-
-nav button {
-  background: white;
-  color: #35134f;
-  border-radius: 30px;
-  padding: 9px 14px;
-}
-
-.hero {
-  min-height: 90vh;
-  max-width: 1300px;
-  margin: auto;
-  padding: 65px 5% 85px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 40px;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-}
-
-.eyebrow {
-  color: #b23f9c;
-  font-size: .8rem;
-  letter-spacing: 2px;
-  font-weight: 900;
-}
-
-.night .eyebrow {
-  color: #ffb8e5;
-}
-
-h1, h2, h3 {
-  font-family: "Fredoka", sans-serif;
-  line-height: 1.08;
-}
-
-h1 {
-  font-size: clamp(3.5rem, 7vw, 6.5rem);
-  margin: 15px 0;
-  letter-spacing: -2px;
-}
-
-h1 span, h2 span {
-  color: #ee4eaa;
-}
-
-.intro {
-  color: var(--muted);
-  max-width: 510px;
-  font-size: 1.2rem;
-  line-height: 1.8;
-}
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 25px;
-}
-
-.button {
-  display: inline-block;
-  text-decoration: none;
-  text-align: center;
-  padding: 13px 20px;
-  border-radius: 40px;
-  transition: transform .2s, box-shadow .2s;
-}
-
-.button:hover {
-  transform: translateY(-4px);
-}
-
-.primary {
-  color: white;
-  background: linear-gradient(100deg, #ff4fae, #9856ff);
-  box-shadow: 0 6px 0 #a53b9c;
-}
-
-.secondary {
-  background: white;
-  color: #51256d;
-  box-shadow: 0 6px 0 #ddc5f4;
-}
-
-#helloMessage {
-  min-height: 28px;
-  font-weight: 800;
-  color: var(--muted);
-}
-
-.stats {
-  display: flex;
-  gap: 30px;
-  margin-top: 28px;
-}
-
-.stats div {
-  display: grid;
-}
-
-.stats strong {
-  font: 700 1.7rem "Fredoka", sans-serif;
-  color: #a052e9;
-}
-
-.stats span {
-  font-size: .85rem;
-  color: var(--muted);
-  font-weight: 800;
-}
-
-.character-area {
-  position: relative;
-  display: grid;
-  place-items: center;
-  padding: 25px;
-}
-
-.baby-card {
-  width: min(100%, 450px);
-  padding: 0;
-  overflow: hidden;
-  border: 7px solid white;
-  border-radius: 38px;
-  background: #211143;
-  box-shadow: 0 22px 0 #c49aef66, 0 35px 70px #7540ad44;
-  transform: rotate(2deg);
-  transition: transform .3s;
-  position: relative;
-  z-index: 2;
-}
-
-.baby-card:hover {
-  transform: rotate(0) scale(1.025);
-}
-
-.baby-card img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.image-label {
-  display: block;
-  color: white;
-  background: linear-gradient(90deg, #713dd2, #ed4eae);
-  padding: 10px;
-}
-
-.floating {
-  position: absolute;
-  z-index: 3;
-  font-size: 2.5rem;
-  animation: float 3s ease-in-out infinite;
-  pointer-events: none;
-}
-
-.star-one { top: 3%; left: 4%; }
-.heart { top: 28%; right: 0; animation-delay: .6s; }
-.moon { top: 8%; right: 8%; animation-delay: 1s; }
-.sparkle { bottom: 5%; left: 5%; animation-delay: 1.4s; }
-
-@keyframes float {
-  50% { transform: translateY(-16px) rotate(12deg); }
-}
-
-.section {
-  max-width: 1200px;
-  padding: 90px 5%;
-  margin: auto;
-  position: relative;
-  z-index: 1;
-}
-
-.center {
-  text-align: center;
-}
-
-.section-title {
-  text-align: center;
-  font-size: clamp(3rem, 6vw, 4.8rem);
-  margin: 10px 0;
-}
-
-.section-intro {
-  text-align: center;
-  color: var(--muted);
-  font-size: 1.1rem;
-}
-
-.features {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 22px;
-  margin-top: 35px;
-}
-
-.feature {
-  padding: 28px;
-  border: 2px solid #ffffffd9;
-  border-radius: 30px;
-  transition: transform .25s;
-  box-shadow: 0 15px 35px #7440a51b;
-}
-
-.feature:hover {
-  transform: translateY(-8px) rotate(-1deg);
-}
-
-.pink { background: #ffd8ed; }
-.blue { background: #d8f5ff; }
-.yellow { background: #fff0b9; }
-
-.feature-icon {
-  font-size: 2.8rem;
-}
-
-.feature h3 {
-  color: #35134f;
-  font-size: 1.7rem;
-  margin-bottom: 8px;
-}
-
-.feature p {
-  color: #654b75;
-}
-
-.gift-panel {
-  display: grid;
-  grid-template-columns: .8fr 1.2fr;
-  gap: 40px;
-  align-items: center;
-  padding: 35px;
-  border: 2px solid #ffffffd9;
-  border-radius: 35px;
-  background: #ffffffa8;
-  box-shadow: 0 20px 50px #7440a51b;
-}
-
-.night .gift-panel {
-  background: #ffffff12;
-}
-
-.gift-image {
-  max-width: 340px;
-  margin: auto;
-  border-radius: 25px;
-  overflow: hidden;
-  box-shadow: 0 15px 35px #7540ad44;
-}
-
-.gift-image img {
-  display: block;
-  width: 100%;
-}
-
-.gift-content h2 {
-  font-size: clamp(2.7rem, 5vw, 4rem);
-  margin: 10px 0;
-}
-
-.gift-content > p {
-  color: var(--muted);
-}
-
-.gift-content label {
-  display: block;
-  font-weight: 900;
-  margin: 20px 0 8px;
-}
-
-.wish-row {
-  display: flex;
-  gap: 10px;
-}
-
-.wish-row input {
-  flex: 1;
-  min-width: 0;
-  padding: 13px 16px;
-  border: 2px solid #e6c8f6;
-  border-radius: 30px;
-  outline: none;
-  color: #35134f;
-  background: white;
-}
-
-.wish-row input:focus {
-  border-color: #a052e9;
-}
-
-#wishMessage {
-  min-height: 25px;
-  font-weight: 800;
-  color: #b23f9c;
-}
-
-.final-section {
-  text-align: center;
-  padding: 80px 20px;
-  color: white;
-  background: radial-gradient(circle at top, #a168ff, #4c2280 60%, #21113e);
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-}
-
-.big-star {
-  color: #ffe58a;
-  font-size: 4rem;
-  text-shadow: 0 0 25px #ffdb69;
-  animation: float 2s ease-in-out infinite;
-}
-
-.final-section .eyebrow {
-  color: #ffcfed;
-}
-
-.final-section h2 {
-  font-size: clamp(2.7rem, 6vw, 4.5rem);
-}
-
-.final-section h2 span {
-  color: #ffe58a;
-}
-
-.white-button {
-  background: white;
-  color: #51256d;
-  margin-top: 15px;
-}
-
-#surpriseMessage {
-  font-weight: 900;
-  font-size: 1.1rem;
-  min-height: 30px;
-}
-
-footer {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 25px 5%;
-  color: var(--muted);
-  font-weight: 800;
-  position: relative;
-  z-index: 1;
-}
-
-footer a {
+a {
   color: inherit;
   text-decoration: none;
 }
 
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  color: inherit;
+}
+
+::selection {
+  color: #fff;
+  background: var(--pink-dark);
+}
+
+/* ---------- 2. Background Star Canvas ---------- */
+
+#starfield {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ---------- 3. Shared Layout ---------- */
+
+section {
+  width: min(var(--content-width), calc(100% - 48px));
+  margin-inline: auto;
+  padding-block: 95px;
+  position: relative;
+}
+
+.section-heading {
+  max-width: 720px;
+  margin: 0 auto 45px;
+  text-align: center;
+}
+
+.section-heading h2,
+section h2 {
+  font-family: "Fredoka", sans-serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.7px;
+}
+
+.section-heading p {
+  max-width: 600px;
+  margin: 14px auto 0;
+  color: var(--muted);
+  font-size: 1.04rem;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 15px;
+  padding: 7px 15px;
+  border: 1px solid rgba(236, 87, 157, 0.17);
+  border-radius: 999px;
+  color: var(--pink-dark);
+  background: rgba(255, 255, 255, 0.65);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+
+/* ---------- 4. Navigation ---------- */
+
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  border-bottom: 1px solid rgba(169, 138, 255, 0.13);
+  background: rgba(255, 249, 255, 0.78);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+nav {
+  width: min(var(--content-width), calc(100% - 48px));
+  min-height: 78px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo,
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+  color: var(--purple-dark);
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.45rem;
+  font-weight: 600;
+}
+
+nav ul,
+nav .nav-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  list-style: none;
+}
+
+nav a {
+  position: relative;
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-weight: 800;
+  transition: color 0.2s ease;
+}
+
+nav a::after {
+  position: absolute;
+  right: 0;
+  bottom: -6px;
+  left: 0;
+  height: 2px;
+  border-radius: 5px;
+  background: var(--pink);
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.2s ease;
+}
+
+nav a:hover {
+  color: var(--pink-dark);
+}
+
+nav a:hover::after {
+  transform: scaleX(1);
+}
+
+/* ---------- 5. Buttons ---------- */
+
+.btn,
+button.btn,
+#helloBtn,
+#wishBtn,
+#surpriseBtn,
+#gardenReset,
+#claimGift {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-height: 48px;
+  padding: 12px 23px;
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(135deg, var(--pink), var(--purple));
+  box-shadow: 0 9px 24px rgba(188, 105, 191, 0.23);
+  font-size: 0.96rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease,
+    filter 0.22s ease;
+}
+
+.btn:hover,
+#helloBtn:hover,
+#wishBtn:hover,
+#surpriseBtn:hover,
+#gardenReset:hover,
+#claimGift:hover {
+  box-shadow: 0 14px 28px rgba(188, 105, 191, 0.32);
+  filter: saturate(1.08);
+  transform: translateY(-3px);
+}
+
+.btn:active,
+#helloBtn:active,
+#wishBtn:active,
+#surpriseBtn:active,
+#gardenReset:active,
+#claimGift:active {
+  transform: translateY(0) scale(0.98);
+}
+
+#nightToggle {
+  flex-shrink: 0;
+  padding: 10px 15px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--purple-dark);
+  background: rgba(255, 255, 255, 0.75);
+  font-weight: 900;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+#nightToggle:hover {
+  transform: translateY(-2px);
+}
+
+/* ---------- 6. Hero ---------- */
+
+#home,
+.hero {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  align-items: center;
+  gap: 55px;
+  min-height: 650px;
+  padding-top: 75px;
+  padding-bottom: 80px;
+}
+
+.hero-content {
+  max-width: 620px;
+}
+
+.hero h1,
+#home h1 {
+  margin-bottom: 22px;
+  font-family: "Fredoka", sans-serif;
+  font-size: clamp(3rem, 6.2vw, 5.4rem);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -2px;
+}
+
+.hero h1 span,
+#home h1 span {
+  color: transparent;
+  background: linear-gradient(110deg, var(--pink-dark), var(--purple-dark));
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+
+.hero p,
+#home p {
+  max-width: 550px;
+  color: var(--muted);
+  font-size: clamp(1rem, 1.5vw, 1.14rem);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.hero-visual {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  min-height: 390px;
+}
+
+#mimoCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 410px);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  border-radius: 46% 54% 55% 45% / 48% 44% 56% 52%;
+  background:
+    radial-gradient(circle at 30% 25%, #fff 0%, transparent 34%),
+    linear-gradient(145deg, #ffe3f1, #e7ddff 54%, #d8f4ff);
+  box-shadow:
+    0 35px 90px rgba(166, 112, 194, 0.2),
+    inset 0 0 35px rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  animation: mimo-float 5s ease-in-out infinite;
+  transition: box-shadow 0.3s ease;
+}
+
+#mimoCard:hover {
+  box-shadow:
+    0 38px 100px rgba(166, 112, 194, 0.29),
+    inset 0 0 35px rgba(255, 255, 255, 0.9);
+}
+
+#mimoCard img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8%;
+  filter: drop-shadow(0 14px 16px rgba(110, 65, 140, 0.13));
+  transition: transform 0.4s ease;
+}
+
+#mimoCard:hover img {
+  transform: scale(1.045) rotate(-2deg);
+}
+
+.hero-decoration {
+  position: absolute;
+  z-index: 2;
+  display: grid;
+  width: 55px;
+  height: 55px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: var(--shadow);
+  font-size: 1.8rem;
+  animation: gentle-float 4s ease-in-out infinite;
+}
+
+.hero-decoration.one {
+  top: 5%;
+  right: 7%;
+}
+
+.hero-decoration.two {
+  bottom: 8%;
+  left: 3%;
+  animation-delay: -1.5s;
+}
+
+.hero-decoration.three {
+  right: -1%;
+  bottom: 30%;
+  animation-delay: -2.5s;
+}
+
+#helloMessage,
+#wishMessage,
+#surpriseMessage,
+#gardenMessage,
+#gardenGiftMessage {
+  margin-top: 16px;
+  color: var(--purple-dark);
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+#helloMessage:empty,
+#wishMessage:empty,
+#surpriseMessage:empty,
+#gardenGiftMessage:empty {
+  display: none;
+}
+
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 35px;
+}
+
+.stat,
+.stat-card {
+  min-width: 120px;
+  padding: 13px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: 0 8px 24px rgba(119, 80, 157, 0.06);
+}
+
+.stat strong,
+.stat-card strong {
+  display: block;
+  color: var(--purple-dark);
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.45rem;
+  line-height: 1.3;
+}
+
+.stat span,
+.stat-card span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+/* ---------- 7. Meet Mimo ---------- */
+
+#meet-mimo,
+#meet,
+.meet-section {
+  padding-top: 70px;
+  padding-bottom: 100px;
+}
+
+.features-grid,
+.mimo-grid,
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.feature-card,
+.mimo-card,
+.info-card {
+  position: relative;
+  overflow: hidden;
+  padding: 30px 25px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.feature-card::before,
+.mimo-card::before,
+.info-card::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--pink), var(--purple), var(--blue));
+  content: "";
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover,
+.mimo-card:hover,
+.info-card:hover {
+  border-color: rgba(169, 138, 255, 0.42);
+  box-shadow: 0 22px 48px rgba(119, 80, 157, 0.13);
+  transform: translateY(-7px);
+}
+
+.feature-card:hover::before,
+.mimo-card:hover::before,
+.info-card:hover::before {
+  transform: scaleX(1);
+}
+
+.feature-icon,
+.card-icon {
+  display: grid;
+  width: 66px;
+  height: 66px;
+  margin-bottom: 20px;
+  place-items: center;
+  border-radius: 22px;
+  background: linear-gradient(135deg, var(--pink-light), var(--lavender));
+  font-size: 2rem;
+}
+
+.feature-card h3,
+.mimo-card h3,
+.info-card h3 {
+  margin-bottom: 9px;
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.feature-card p,
+.mimo-card p,
+.info-card p {
+  color: var(--muted);
+  font-size: 0.97rem;
+}
+
+/* ---------- 8. Dream Garden ---------- */
+
+#dream-garden,
+#garden {
+  padding-top: 85px;
+  padding-bottom: 100px;
+}
+
+#dream-garden .section-heading,
+#garden .section-heading {
+  margin-bottom: 30px;
+}
+
+.garden-stats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 13px;
+  margin: 0 auto 25px;
+}
+
+.garden-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 17px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 0.94rem;
+  font-weight: 900;
+}
+
+.garden-stat strong {
+  color: var(--purple-dark);
+}
+
+#gardenArea {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 390px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(ellipse at 16% 18%, rgba(255, 255, 255, 0.9), transparent 22%),
+    radial-gradient(ellipse at 84% 14%, rgba(255, 245, 189, 0.72), transparent 24%),
+    linear-gradient(180deg, #dff5ff 0%, #f0eaff 54%, #dff7e9 100%);
+  box-shadow:
+    0 22px 65px rgba(119, 80, 157, 0.12),
+    inset 0 0 35px rgba(255, 255, 255, 0.55);
+}
+
+#gardenArea::before {
+  position: absolute;
+  z-index: -1;
+  top: 10%;
+  left: 13%;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow:
+    18px 8px 0 -6px rgba(255, 255, 255, 0.7),
+    290px 75px 0 -13px rgba(255, 255, 255, 0.8),
+    450px -15px 0 -8px rgba(255, 255, 255, 0.7);
+  content: "";
+}
+
+.garden-hill {
+  position: absolute;
+  z-index: -1;
+  right: -10%;
+  bottom: -36%;
+  left: -10%;
+  height: 65%;
+  border-radius: 50% 50% 0 0;
+  pointer-events: none;
+}
+
+.hill-one {
+  background: linear-gradient(180deg, #bdeccf, #8cddb2);
+  transform: rotate(-4deg);
+}
+
+.hill-two {
+  right: -20%;
+  bottom: -46%;
+  left: 35%;
+  height: 70%;
+  background: linear-gradient(180deg, #d2f4d9, #a9e7c3);
+  transform: rotate(7deg);
+}
+
+.garden-hint {
+  position: absolute;
+  z-index: 2;
+  top: 13px;
+  left: 50%;
+  width: max-content;
+  max-width: calc(100% - 28px);
+  padding: 7px 13px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  color: #6e5795;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.82rem;
+  font-weight: 900;
+  text-align: center;
+  transform: translateX(-50%);
+}
+
+.garden-collectible {
+  position: absolute;
+  z-index: 3;
+  display: grid;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.64);
+  box-shadow: 0 7px 18px rgba(100, 84, 135, 0.12);
+  font-size: 1.8rem;
+  line-height: 1;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  animation: garden-bob 3s ease-in-out infinite;
+  animation-delay: var(--item-delay, 0s);
+  transition:
+    opacity 0.3s ease,
+    filter 0.3s ease,
+    background 0.3s ease,
+    transform 0.25s ease;
+}
+
+.garden-collectible:hover {
+  z-index: 4;
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(100, 84, 135, 0.22);
+  transform: translate(-50%, -50%) scale(1.16) rotate(-6deg);
+}
+
+.garden-collectible:disabled {
+  cursor: default;
+}
+
+.garden-collectible.collected {
+  opacity: 0;
+  pointer-events: none;
+  filter: grayscale(1);
+  transform: translate(-50%, -80%) scale(0.3);
+}
+
+.flower-collectible {
+  border-radius: 50% 42% 50% 42%;
+}
+
+.star-collectible {
+  border-radius: 50%;
+}
+
+#gardenMessage {
+  min-height: 32px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.garden-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  margin-top: 18px;
+}
+
+#gardenReset {
+  border: 1px solid var(--border);
+  color: var(--purple-dark);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+}
+
+#treasureBox[hidden] {
+  display: none !important;
+}
+
+#treasureBox {
+  max-width: 650px;
+  margin: 28px auto 0;
+  padding: 28px;
+  border: 1px solid rgba(255, 209, 118, 0.8);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at top right, rgba(255, 241, 184, 0.7), transparent 40%),
+    var(--surface);
+  box-shadow: 0 20px 55px rgba(186, 143, 59, 0.13);
+  text-align: center;
+}
+
+#treasureBox h3 {
+  margin-bottom: 8px;
+  color: var(--purple-dark);
+  font-family: "Fredoka", sans-serif;
+  font-size: 1.8rem;
+}
+
+#treasureBox p {
+  color: var(--muted);
+}
+
+.treasure-unlocked {
+  animation: treasure-pop 0.65s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+/* ---------- 9. Dream Gift / Wish ---------- */
+
+#dream-gift,
+#gift {
+  padding-top: 90px;
+  padding-bottom: 100px;
+}
+
+.gift-panel {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  align-items: center;
+  gap: 45px;
+  padding: clamp(25px, 5vw, 60px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 36px;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(255, 210, 235, 0.6), transparent 42%),
+    radial-gradient(circle at 100% 100%, rgba(216, 205, 255, 0.65), transparent 45%),
+    var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.gift-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 0;
+}
+
+.gift-visual img {
+  width: min(100%, 330px);
+  max-height: 350px;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 24px rgba(118, 77, 147, 0.14));
+  animation: gentle-float 4.5s ease-in-out infinite;
+}
+
+.gift-content h2 {
+  margin-bottom: 14px;
+}
+
+.gift-content > p {
+  margin-bottom: 20px;
+  color: var(--muted);
+}
+
+.wish-form {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+}
+
+#wishInput {
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+  padding: 12px 17px;
+  border: 1px solid rgba(169, 138, 255, 0.35);
+  border-radius: 16px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.86);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+#wishInput::placeholder {
+  color: #a392b1;
+}
+
+#wishInput:focus {
+  border-color: var(--purple);
+  box-shadow: 0 0 0 4px rgba(169, 138, 255, 0.13);
+  outline: none;
+}
+
+#wishBtn {
+  flex-shrink: 0;
+  border-radius: 16px;
+}
+
+/* ---------- 10. Final Surprise ---------- */
+
+#surprise,
+#final-surprise {
+  padding-top: 60px;
+  padding-bottom: 110px;
+  text-align: center;
+}
+
+.surprise-panel {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(35px, 7vw, 75px) 24px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 36px;
+  background:
+    radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.75), transparent 25%),
+    linear-gradient(135deg, #ffe1f0 0%, #eee5ff 50%, #dff5ff 100%);
+  box-shadow: var(--shadow);
+}
+
+.surprise-panel h2 {
+  margin-bottom: 14px;
+}
+
+.surprise-panel p {
+  max-width: 650px;
+  margin: 0 auto;
+  color: var(--muted);
+}
+
+#surpriseBtn {
+  margin-top: 25px;
+}
+
+#surpriseMessage {
+  max-width: 680px;
+  margin: 22px auto 0;
+  font-size: 1.13rem;
+}
+
+/* ---------- 11. Footer ---------- */
+
+footer {
+  padding: 30px 24px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.48);
+  text-align: center;
+}
+
+footer p {
+  font-size: 0.9rem;
+}
+
+footer strong {
+  color: var(--purple-dark);
+}
+
+/* ---------- 12. Toast Notifications ---------- */
+
 #toast {
   position: fixed;
-  z-index: 30;
-  left: 50%;
-  bottom: 20px;
-  transform: translate(-50%, 150%);
-  background: #5d2e9b;
-  color: white;
-  padding: 12px 20px;
-  border-radius: 30px;
+  z-index: 200;
+  right: 24px;
+  bottom: 24px;
+  max-width: min(390px, calc(100% - 32px));
+  padding: 14px 20px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 18px;
+  color: #fff;
+  background: linear-gradient(135deg, #9b76e8, #e76ca9);
+  box-shadow: 0 15px 35px rgba(97, 60, 140, 0.24);
+  font-size: 0.93rem;
   font-weight: 900;
-  transition: transform .3s;
-  text-align: center;
-  max-width: 90%;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(18px) scale(0.96);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
 }
 
 #toast.show {
-  transform: translate(-50%, 0);
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
-.confetti {
+/* ---------- 13. JavaScript Sparkle Particles ---------- */
+
+.sparkle-particle {
   position: fixed;
-  z-index: 40;
+  z-index: 250;
+  display: block;
+  color: var(--pink-dark);
+  font-size: var(--sparkle-size, 12px);
+  line-height: 1;
   pointer-events: none;
-  animation: fall 1.5s ease-out forwards;
+  user-select: none;
+  animation: sparkle-burst 1s ease-out forwards;
 }
 
-@keyframes fall {
-  to {
-    transform: translate(var(--dx), 80vh) rotate(600deg);
+@keyframes sparkle-burst {
+  0% {
     opacity: 0;
+    transform: translate(-50%, -50%) scale(0.3) rotate(0deg);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform:
+      translate(
+        calc(-50% + var(--dx, 0px)),
+        calc(-50% + var(--dy, -60px))
+      )
+      scale(1.25)
+      rotate(180deg);
   }
 }
 
-@media (max-width: 850px) {
-  .navbar {
+/* ---------- 14. Interaction Animations ---------- */
+
+.message-pop {
+  animation: message-pop 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes message-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(9px) scale(0.96);
+  }
+
+  70% {
+    transform: translateY(-2px) scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.mimo-bounce {
+  animation: mimo-bounce 0.7s ease;
+}
+
+@keyframes mimo-bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+
+  35% {
+    transform: translateY(-15px) scale(1.04);
+  }
+
+  65% {
+    transform: translateY(3px) scale(0.98);
+  }
+}
+
+@keyframes mimo-float {
+  0%, 100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+
+  50% {
+    transform: translateY(-13px) rotate(1deg);
+  }
+}
+
+@keyframes gentle-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+@keyframes garden-bob {
+  0%, 100% {
+    margin-top: 0;
+  }
+
+  50% {
+    margin-top: -5px;
+  }
+}
+
+@keyframes treasure-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.92);
+  }
+
+  70% {
+    transform: translateY(-3px) scale(1.02);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---------- 15. Night Mode ---------- */
+
+body.night-mode {
+  --text: #f7edff;
+  --muted: #c8b9df;
+  --surface: rgba(44, 34, 69, 0.78);
+  --surface-solid: #2d2245;
+  --border: rgba(208, 177, 255, 0.2);
+  --shadow: 0 18px 55px rgba(0, 0, 0, 0.23);
+
+  color: var(--text);
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(89, 53, 123, 0.5), transparent 34%),
+    radial-gradient(ellipse at 88% 20%, rgba(63, 56, 125, 0.46), transparent 32%),
+    linear-gradient(180deg, #171326 0%, #211833 52%, #19152a 100%);
+}
+
+.night-mode header {
+  border-bottom-color: rgba(208, 177, 255, 0.13);
+  background: rgba(28, 21, 43, 0.82);
+}
+
+.night-mode .logo,
+.night-mode .nav-logo {
+  color: #d8c6ff;
+}
+
+.night-mode nav a {
+  color: #c8b9df;
+}
+
+.night-mode nav a:hover {
+  color: #ffacd4;
+}
+
+.night-mode #nightToggle {
+  border-color: rgba(208, 177, 255, 0.25);
+  color: #f5d9ff;
+  background: rgba(63, 48, 89, 0.8);
+}
+
+.night-mode .eyebrow {
+  border-color: rgba(255, 151, 207, 0.22);
+  color: #ffacd4;
+  background: rgba(56, 39, 73, 0.7);
+}
+
+.night-mode .hero h1 span,
+.night-mode #home h1 span {
+  background-image: linear-gradient(110deg, #ffacd4, #c8b6ff);
+}
+
+.night-mode .stat,
+.night-mode .stat-card,
+.night-mode .feature-card,
+.night-mode .mimo-card,
+.night-mode .info-card {
+  background: rgba(43, 33, 65, 0.83);
+}
+
+.night-mode .stat strong,
+.night-mode .stat-card strong,
+.night-mode #helloMessage,
+.night-mode #wishMessage,
+.night-mode #surpriseMessage,
+.night-mode #gardenMessage,
+.night-mode #gardenGiftMessage {
+  color: #e1caff;
+}
+
+.night-mode .feature-icon,
+.night-mode .card-icon {
+  background: linear-gradient(135deg, #513753, #3d3569);
+}
+
+.night-mode .gift-panel {
+  border-color: rgba(208, 177, 255, 0.15);
+  background:
+    radial-gradient(circle at 0% 0%, rgba(126, 58, 102, 0.22), transparent 42%),
+    radial-gradient(circle at 100% 100%, rgba(83, 69, 147, 0.28), transparent 45%),
+    rgba(40, 30, 60, 0.84);
+}
+
+.night-mode #wishInput {
+  border-color: rgba(208, 177, 255, 0.27);
+  color: #f7edff;
+  background: rgba(27, 21, 42, 0.8);
+}
+
+.night-mode #wishInput::placeholder {
+  color: #a99abb;
+}
+
+.night-mode .surprise-panel {
+  border-color: rgba(208, 177, 255, 0.17);
+  background: linear-gradient(135deg, #50314e, #3c315e 50%, #263c59);
+}
+
+.night-mode #gardenArea {
+  border-color: rgba(208, 177, 255, 0.22);
+  background:
+    radial-gradient(ellipse at 20% 12%, rgba(255, 255, 255, 0.12), transparent 24%),
+    linear-gradient(180deg, #343b64 0%, #49416c 55%, #274c50 100%);
+}
+
+.night-mode .hill-one {
+  background: linear-gradient(180deg, #416f65, #28554c);
+}
+
+.night-mode .hill-two {
+  background: linear-gradient(180deg, #548475, #37695a);
+}
+
+.night-mode .garden-hint {
+  border-color: rgba(208, 177, 255, 0.18);
+  color: #f2e7ff;
+  background: rgba(43, 31, 63, 0.84);
+}
+
+.night-mode .garden-collectible {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(45, 35, 66, 0.8);
+}
+
+.night-mode .garden-collectible:hover {
+  background: rgba(72, 55, 99, 0.95);
+}
+
+.night-mode .garden-stat {
+  background: rgba(43, 33, 65, 0.84);
+}
+
+.night-mode .garden-stat strong {
+  color: #e1caff;
+}
+
+.night-mode #gardenReset {
+  color: #e1caff;
+  background: rgba(43, 33, 65, 0.85);
+}
+
+.night-mode #treasureBox {
+  border-color: rgba(255, 218, 139, 0.24);
+  background:
+    radial-gradient(circle at top right, rgba(255, 213, 127, 0.1), transparent 40%),
+    rgba(43, 33, 65, 0.9);
+}
+
+.night-mode #treasureBox h3 {
+  color: #e1caff;
+}
+
+.night-mode footer {
+  border-top-color: rgba(208, 177, 255, 0.13);
+  background: rgba(27, 21, 42, 0.58);
+}
+
+.night-mode footer strong {
+  color: #e1caff;
+}
+
+/* ---------- 16. Responsive: Tablets ---------- */
+
+@media (max-width: 900px) {
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px 20px;
+    padding-block: 13px;
+  }
+
+  nav ul,
+  nav .nav-links {
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
+
+  #home,
+  .hero {
+    grid-template-columns: 1fr 0.85fr;
+    gap: 28px;
+    min-height: 560px;
+  }
+
+  .hero-visual {
+    min-height: 300px;
+  }
+
+  #mimoCard {
+    width: min(100%, 330px);
+  }
+
+  .features-grid,
+  .mimo-grid,
+  .cards-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gift-panel {
+    gap: 25px;
+  }
+
+  .wish-form {
     flex-direction: column;
   }
 
-  nav {
-    justify-content: center;
-    gap: 12px;
+  #wishBtn {
+    align-self: flex-start;
+  }
+}
+
+/* ---------- 17. Responsive: Phones ---------- */
+
+@media (max-width: 600px) {
+  html {
+    scroll-padding-top: 135px;
   }
 
+  nav {
+    width: calc(100% - 28px);
+    gap: 9px 12px;
+  }
+
+  .logo,
+  .nav-logo {
+    font-size: 1.25rem;
+  }
+
+  nav ul,
+  nav .nav-links {
+    gap: 9px 13px;
+  }
+
+  nav a {
+    font-size: 0.82rem;
+  }
+
+  #nightToggle {
+    padding: 8px 11px;
+    font-size: 0.8rem;
+  }
+
+  section {
+    width: calc(100% - 30px);
+    padding-block: 65px;
+  }
+
+  #home,
   .hero {
     grid-template-columns: 1fr;
+    gap: 25px;
+    min-height: auto;
+    padding-top: 55px;
+    padding-bottom: 60px;
     text-align: center;
-    padding-top: 45px;
   }
 
-  .intro {
-    margin-left: auto;
-    margin-right: auto;
+  .hero-content {
+    margin-inline: auto;
   }
 
-  .actions, .stats {
+  .hero h1,
+  #home h1 {
+    font-size: clamp(2.75rem, 13vw, 4rem);
+    letter-spacing: -1.3px;
+  }
+
+  .hero p,
+  #home p {
+    margin-inline: auto;
+  }
+
+  .hero-actions,
+  .hero-stats {
     justify-content: center;
   }
 
-  .character-area {
-    width: 100%;
-    max-width: 550px;
-    margin: auto;
+  .hero-visual {
+    min-height: 280px;
+    margin-top: 10px;
   }
 
-  .baby-card {
-    width: min(85%, 400px);
+  #mimoCard {
+    width: min(80vw, 315px);
   }
 
-  .features, .gift-panel {
+  .hero-decoration {
+    width: 43px;
+    height: 43px;
+    border-radius: 15px;
+    font-size: 1.4rem;
+  }
+
+  .section-heading {
+    margin-bottom: 30px;
+  }
+
+  .section-heading h2,
+  section h2 {
+    font-size: clamp(1.9rem, 8vw, 2.55rem);
+  }
+
+  .features-grid,
+  .mimo-grid,
+  .cards-grid {
     grid-template-columns: 1fr;
+    gap: 16px;
   }
 
-  .gift-image {
-    max-width: 270px;
-  }
-}
-
-@media (max-width: 520px) {
-  nav {
-    font-size: .85rem;
+  .feature-card,
+  .mimo-card,
+  .info-card {
+    padding: 24px;
   }
 
-  .actions {
-    flex-direction: column;
+  #gardenArea {
+    min-height: 370px;
+    border-radius: 22px;
   }
 
-  .wish-row {
-    flex-direction: column;
+  .garden-collectible {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+    font-size: 1.5rem;
   }
 
-  footer {
-    flex-direction: column;
+  .garden-hint {
+    top: 10px;
+    font-size: 0.72rem;
+  }
+
+  .garden-controls {
+    gap: 10px;
+  }
+
+  .garden-controls button {
+    min-height: 44px;
+    padding: 10px 16px;
+    font-size: 0.87rem;
+  }
+
+  .gift-panel {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding: 24px 19px;
+    border-radius: 25px;
+  }
+
+  .gift-visual img {
+    width: min(75%, 250px);
+    max-height: 250px;
+  }
+
+  .gift-content {
     text-align: center;
   }
+
+  .wish-form {
+    flex-direction: column;
+  }
+
+  #wishBtn {
+    align-self: stretch;
+  }
+
+  .surprise-panel {
+    padding: 42px 20px;
+    border-radius: 25px;
+  }
+
+  #toast {
+    right: 16px;
+    bottom: 16px;
+  }
 }
 
+/* ---------- 18. Small Phones ---------- */
+
+@media (max-width: 360px) {
+  nav ul,
+  nav .nav-links {
+    gap: 8px 10px;
+  }
+
+  nav a {
+    font-size: 0.75rem;
+  }
+
+  .hero-stats {
+    gap: 8px;
+  }
+
+  .stat,
+  .stat-card {
+    min-width: 100px;
+    padding: 10px 12px;
+  }
+
+  .hero-actions .btn,
+  #helloBtn {
+    width: 100%;
+  }
+
+  #gardenArea {
+    min-height: 330px;
+  }
+}
+
+/* ---------- 19. Reduced Motion Accessibility ---------- */
+
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
+  *,
+  *::before,
+  *::after {
     scroll-behavior: auto !important;
-    transition-duration: .01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  #mimoCard,
+  .gift-visual img {
+    animation: none;
   }
 }
