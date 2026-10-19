@@ -4,104 +4,126 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#fff4fa">
-  <meta name="description" content="Explore Mimo's Dreamverse, a magical universe of stars, dreams and imagination.">
-  <title>Mimo's Dreamverse ✦</title>
+  <title>Mimo's Dreamverse ✨</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
 <body>
+  <canvas id="starfield"></canvas>
+
   <header class="navbar">
-    <a class="brand" href="#home">✦ MIMO<span>VERSE</span></a>
-
-    <nav aria-label="Main navigation">
+    <a class="logo" href="#home">✨ Mimo's Dreamverse</a>
+    <nav>
       <a href="#home">Home</a>
-      <a href="#about">Meet Mimo</a>
-      <a href="#dreams">Dreams</a>
+      <a href="#meet">Meet Mimo</a>
+      <a href="#gift">Dream Gift</a>
+      <button id="nightToggle">🌙 Night</button>
     </nav>
-
-    <a class="nav-button" href="#dreams">Explore ✨</a>
   </header>
 
   <main>
     <section class="hero" id="home">
-      <div class="hero-copy">
-        <span class="eyebrow">✧ YOUR NEW LITTLE HAPPY PLACE ✧</span>
-
-        <h1>A tiny star.<br>A <span>universe</span><br>of dreams.</h1>
-
-        <p>
-          Meet Mimo, your fluffy little dream keeper.
-          Every star has a story, and every story begins with you.
+      <div class="hero-text">
+        <p class="eyebrow">✨ A little friend from a magical universe</p>
+        <h1>Meet <span>Mimo</span><br>The Star Keeper!</h1>
+        <p class="intro">
+          A fluffy little friend carrying one glowing star
+          and a universe full of magic, kindness and dreams. 💖
         </p>
-
-        <div class="hero-actions">
-          <a class="primary-button" href="#about">Meet Mimo <span>♡</span></a>
-          <a class="secondary-button" href="#dreams">Explore the magic ↗</a>
+        <div class="actions">
+          <a class="button primary" href="#gift">Open Your Gift 🎁</a>
+          <button class="button secondary" id="helloBtn">Say Hello 👋</button>
         </div>
-
-        <p class="tiny-note">Made of stardust, tiny wishes & big feelings.</p>
+        <p id="helloMessage" aria-live="polite">
+          Psst... Mimo has a surprise for you!
+        </p>
+        <div class="stats">
+          <div><strong>∞</strong><span>Dreams</span></div>
+          <div><strong>⭐</strong><span>Magic</span></div>
+          <div><strong>💗</strong><span>Kindness</span></div>
+        </div>
       </div>
 
-      <div class="character-stage" id="about">
-        <div class="orbit orbit-one"></div>
-        <div class="orbit orbit-two"></div>
-
-        <span class="spark spark-one">✦</span>
-        <span class="spark spark-two">✧</span>
-        <span class="spark spark-three">✦</span>
-
-        <div class="character-card">
-          <div class="character-face" id="mimo" role="img" aria-label="Mimo, a fluffy pink dream creature">
-            <div class="antenna antenna-left"><span></span></div>
-            <div class="antenna antenna-right"><span></span></div>
-            <div class="ear ear-left"></div>
-            <div class="ear ear-right"></div>
-            <div class="eye eye-left"><i></i></div>
-            <div class="eye eye-right"><i></i></div>
-            <div class="cheek cheek-left"></div>
-            <div class="cheek cheek-right"></div>
-            <div class="mouth"></div>
-            <div class="belly-star">✦</div>
-          </div>
-
-          <div class="character-caption">
-            <span class="online-dot"></span>
-            <span> Mimo is dreaming...</span>
-          </div>
-        </div>
-
-        <div class="floating-note note-top">little wishes ✧</div>
-        <div class="floating-note note-bottom">sending you hugs ♡</div>
+      <div class="character-area">
+        <span class="floating star-one">⭐</span>
+        <span class="floating heart">💖</span>
+        <span class="floating moon">🌙</span>
+        <button class="baby-card" id="mimoCard" aria-label="Tap Mimo for magic">
+          <img src="assets/mimo-star-baby.png"
+               alt="Mimo, a fluffy pink magical creature holding a glowing star">
+          <span class="image-label">Tap me for magic ✨</span>
+        </button>
+        <span class="floating sparkle">✨</span>
       </div>
     </section>
 
-    <section class="intro-section" id="dreams">
-      <span class="eyebrow">✦ A WORLD MADE FOR YOU ✦</span>
-      <h2>Small creature.<br><span>Endless wonder.</span></h2>
-      <p>
-        This is Mimo's little corner of the universe.
-        Tap the button to say hello and discover a little magic.
+    <section class="section" id="meet">
+      <p class="eyebrow center">YOUR NEW LITTLE FRIEND</p>
+      <h2 class="section-title">Small Fluff.<br><span>Big Magic.</span></h2>
+      <p class="section-intro">
+        Mimo collects kind thoughts and turns them into tiny stars.
       </p>
 
-      <div class="magic-actions">
-        <button class="primary-button" id="hello-mimo" type="button">
-          Say hello to Mimo ♡
-        </button>
-        <button class="secondary-button" id="wish-star" type="button">
-          Make a little wish ✦
-        </button>
+      <div class="features">
+        <article class="feature pink">
+          <div class="feature-icon">💗</div>
+          <h3>A Heart of Fluff</h3>
+          <p>Mimo's favourite mission is making people smile.</p>
+        </article>
+        <article class="feature blue">
+          <div class="feature-icon">🌟</div>
+          <h3>The Star Keeper</h3>
+          <p>A magical star filled with hope, wonder and happiness.</p>
+        </article>
+        <article class="feature yellow">
+          <div class="feature-icon">☁️</div>
+          <h3>The Dream Traveller</h3>
+          <p>Mimo travels across clouds delivering little surprises.</p>
+        </article>
       </div>
+    </section>
 
-      <p id="mimo-message" class="message" aria-live="polite">
-        Psst... Mimo loves making new friends.
-      </p>
+    <section class="section gift-section" id="gift">
+      <div class="gift-panel">
+        <div class="gift-image">
+          <img src="assets/mimo-star-baby.png" alt="Mimo holding a magical glowing star">
+        </div>
+        <div class="gift-content">
+          <p class="eyebrow">A LITTLE GIFT FOR YOU</p>
+          <h2>Your Pocketful<br><span>of Magic 🎁</span></h2>
+          <p>
+            Write a wish and send it into Mimo's magical universe.
+            Your little moment deserves a little sparkle.
+          </p>
+          <label for="wishInput">Make a little wish</label>
+          <div class="wish-row">
+            <input id="wishInput" maxlength="100"
+                   placeholder="I wish for more kindness...">
+            <button class="button primary" id="wishBtn">Send ✨</button>
+          </div>
+          <p id="wishMessage" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="final-section">
+      <div class="big-star">✦</div>
+      <p class="eyebrow">A SECRET MESSAGE FROM MIMO</p>
+      <h2>You make this universe<br><span>more magical.</span></h2>
+      <button class="button white-button" id="surpriseBtn">
+        Open Your Surprise 🎁
+      </button>
+      <p id="surpriseMessage" aria-live="polite"></p>
     </section>
   </main>
 
   <footer>
-    <p>Made with ♡ in Mimo's Dreamverse</p>
-    <span>Every little dream matters. ✦</span>
+    <span>Made with code, kindness and stardust ✨</span>
+    <a href="#home">Back to the stars ↑</a>
   </footer>
+
+  <div id="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
