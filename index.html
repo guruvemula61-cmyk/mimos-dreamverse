@@ -1,553 +1,266 @@
 
-(() => {
-  "use strict";
-
-  // ==========================================
-  // MIMO'S DREAMVERSE — INTERACTIVE EXPERIENCE
-  // ==========================================
-
-  const $ = (selector) => document.querySelector(selector);
-
-  const nightToggle = $("#nightToggle");
-  const helloBtn = $("#helloBtn");
-  const helloMessage = $("#helloMessage");
-  const mimoCard = $("#mimoCard");
-
-  const wishInput = $("#wishInput");
-  const wishBtn = $("#wishBtn");
-  const wishMessage = $("#wishMessage");
-
-  const surpriseBtn = $("#surpriseBtn");
-  const surpriseMessage = $("#surpriseMessage");
-
-  const starfield = $("#starfield");
-  const toast = $("#toast");
-
-  // Dream Garden elements
-  const gardenArea = $("#gardenArea");
-  const flowerCount = $("#flowerCount");
-  const starCount = $("#starCount");
-  const gardenMessage = $("#gardenMessage");
-  const gardenReset = $("#gardenReset");
-  const treasureBox = $("#treasureBox");
-  const claimGift = $("#claimGift");
-  const gardenGiftMessage = $("#gardenGiftMessage");
-
-  let foundFlowers = 0;
-  let foundStars = 0;
-  let toastTimer;
-  let toastTimeout;
-  let gardenComplete = false;
-
-  const totalFlowers = 5;
-  const totalStars = 5;
-
-  const helloMessages = [
-    "Mimo is happy you are here! ✨",
-    "You make this little universe brighter! 🌈",
-    "A tiny sparkle of magic just found you! 💖",
-    "Welcome to your own little dream world! ☁️",
-    "Today is a perfect day to dream big! ⭐"
-  ];
-
-  const surpriseMessages = [
-    "You are made of stardust and wonderful possibilities! ✨",
-    "Somewhere in the universe, a little star is shining just for you! 🌟",
-    "Your dreams deserve a sky full of stars! 🌌",
-    "Never underestimate the magic of being yourself! 💗",
-    "Sending you one million imaginary sparkles! 🪄"
-  ];
-
-  // ------------------------------------------
-  // Utility functions
-  // ------------------------------------------
-
-  function randomItem(items) {
-    return items[Math.floor(Math.random() * items.length)];
-  }
-
-  function showToast(message) {
-    if (!toast) return;
-
-    toast.textContent = message;
-    toast.classList.add("show");
-
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-      toast.classList.remove("show");
-    }, 2600);
-  }
-
-  function makeSparkles(x, y, amount = 12) {
-    for (let i = 0; i < amount; i++) {
-      const sparkle = document.createElement("span");
-      sparkle.className = "sparkle-particle";
-
-      const angle = Math.random() * Math.PI * 2;
-      const distance = 35 + Math.random() * 90;
-
-      sparkle.style.left = `${x}px`;
-      sparkle.style.top = `${y}px`;
-      sparkle.style.setProperty("--dx", `${Math.cos(angle) * distance}px`);
-      sparkle.style.setProperty("--dy", `${Math.sin(angle) * distance}px`);
-      sparkle.style.setProperty(
-        "--sparkle-size",
-        `${5 + Math.random() * 10}px`
-      );
-
-      sparkle.textContent = randomItem(["✦", "✧", "✨", "⋆", "♡"]);
-      document.body.appendChild(sparkle);
-
-      setTimeout(() => sparkle.remove(), 1100);
-    }
-  }
-
-  function sparkleFromElement(element, amount = 14) {
-    if (!element) return;
-
-    const rect = element.getBoundingClientRect();
-    makeSparkles(
-      rect.left + rect.width / 2,
-      rect.top + rect.height / 2,
-      amount
-    );
-  }
-
-  function updateCounter(element, value, total) {
-    if (element) {
-      element.textContent = `${value}/${total}`;
-    }
-  }
-
-  // ------------------------------------------
-  // 1. Night mode toggle
-  // ------------------------------------------
-
-  if (nightToggle) {
-    nightToggle.addEventListener("click", () => {
-      const isNight = document.body.classList.toggle("night-mode");
-
-      nightToggle.textContent = isNight
-        ? "☀️ Day Mode"
-        : "🌙 Night Mode";
-
-      nightToggle.setAttribute("aria-pressed", String(isNight));
-
-      showToast(
-        isNight
-          ? "The dream universe is glowing under the moon! 🌙"
-          : "Good morning, little dreamer! ☀️"
-      );
-    });
-  }
-
-  // ------------------------------------------
-  // 2. Say hello to Mimo
-  // ------------------------------------------
-
-  if (helloBtn) {
-    helloBtn.addEventListener("click", () => {
-      if (helloMessage) {
-        helloMessage.textContent = randomItem(helloMessages);
-        helloMessage.classList.remove("message-pop");
-        void helloMessage.offsetWidth;
-        helloMessage.classList.add("message-pop");
-      }
-
-      sparkleFromElement(helloBtn, 18);
-      showToast("Mimo says hello! 💖");
-    });
-  }
-
-  // ------------------------------------------
-  // 3. Mimo character interaction
-  // ------------------------------------------
-
-  if (mimoCard) {
-    mimoCard.addEventListener("click", () => {
-      sparkleFromElement(mimoCard, 22);
-      showToast("✨ You discovered a little Mimo magic!");
-
-      mimoCard.classList.remove("mimo-bounce");
-      void mimoCard.offsetWidth;
-      mimoCard.classList.add("mimo-bounce");
-
-      setTimeout(() => {
-        mimoCard.classList.remove("mimo-bounce");
-      }, 800);
-    });
-  }
-
-  // ------------------------------------------
-  // 4. Dream Garden game
-  // ------------------------------------------
-
-  function updateGarden() {
-    updateCounter(flowerCount, foundFlowers, totalFlowers);
-    updateCounter(starCount, foundStars, totalStars);
-
-    if (gardenComplete) return;
-
-    if (foundFlowers === totalFlowers && foundStars === totalStars) {
-      gardenComplete = true;
-
-      if (gardenMessage) {
-        gardenMessage.textContent =
-          "You found every flower and star! Your dream garden is complete! 🌈";
-      }
-
-      if (treasureBox) {
-        treasureBox.hidden = false;
-        treasureBox.classList.add("treasure-unlocked");
-      }
-
-      showToast("Dream Garden completed! Your surprise is unlocked! 🎁");
-      sparkleFromElement(gardenArea, 35);
-    } else if (gardenMessage) {
-      gardenMessage.textContent =
-        `Keep exploring! Find ${totalFlowers - foundFlowers} more flowers ` +
-        `and ${totalStars - foundStars} more stars. ✨`;
-    }
-  }
-
-  function createGardenItems() {
-    if (!gardenArea) return;
-
-    // Clear previous game items while preserving decorative hills.
-    gardenArea
-      .querySelectorAll(".garden-collectible")
-      .forEach((item) => item.remove());
-
-    foundFlowers = 0;
-    foundStars = 0;
-    gardenComplete = false;
-
-    if (treasureBox) {
-      treasureBox.hidden = true;
-      treasureBox.classList.remove("treasure-unlocked");
-    }
-
-    if (gardenGiftMessage) {
-      gardenGiftMessage.textContent = "";
-    }
-
-    const items = [
-      ...Array(totalFlowers).fill("flower"),
-      ...Array(totalStars).fill("star")
-    ];
-
-    // Shuffle the collectibles.
-    for (let i = items.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [items[i], items[j]] = [items[j], items[i]];
-    }
-
-    items.forEach((type, index) => {
-      const item = document.createElement("button");
-      item.type = "button";
-      item.className = `garden-collectible ${type}-collectible`;
-      item.dataset.type = type;
-
-      const symbol = type === "flower" ? "🌸" : "⭐";
-      const label = type === "flower" ? "flower" : "star";
-
-      item.textContent = symbol;
-      item.setAttribute("aria-label", `Collect a hidden ${label}`);
-      item.title = `Find this ${label}!`;
-
-      // Deterministic positions help keep items inside the garden.
-      const left = 7 + ((index * 19 + 11) % 84);
-      const top = 12 + ((index * 23 + 7) % 68);
-
-      item.style.left = `${left}%`;
-      item.style.top = `${top}%`;
-      item.style.setProperty("--item-delay", `${index * 0.06}s`);
-
-      item.addEventListener("click", () => {
-        if (item.classList.contains("collected") || gardenComplete) {
-          return;
-        }
-
-        item.classList.add("collected");
-        item.disabled = true;
-
-        if (type === "flower") {
-          foundFlowers++;
-          showToast("A magical flower collected! 🌸");
-        } else {
-          foundStars++;
-          showToast("A sparkling star collected! ⭐");
-        }
-
-        sparkleFromElement(item, 8);
-        updateGarden();
-      });
-
-      gardenArea.appendChild(item);
-    });
-
-    updateGarden();
-
-    if (gardenMessage) {
-      gardenMessage.textContent =
-        "Explore the garden and collect all 5 flowers and 5 stars! 🌷";
-    }
-  }
-
-  if (gardenArea) {
-    createGardenItems();
-  }
-
-  if (gardenReset) {
-    gardenReset.addEventListener("click", () => {
-      createGardenItems();
-      showToast("Your Dream Garden has been refreshed! 🌱");
-    });
-  }
-
-  if (claimGift) {
-    claimGift.addEventListener("click", () => {
-      if (!gardenComplete) {
-        showToast("Collect all flowers and stars first! 🌸");
-        return;
-      }
-
-      if (gardenGiftMessage) {
-        gardenGiftMessage.textContent =
-          "🎁 Your gift is a little reminder: your imagination can create beautiful worlds. Keep dreaming, little star!";
-      }
-
-      sparkleFromElement(claimGift, 25);
-      showToast("Your Dream Garden gift is ready! 💝");
-    });
-  }
-
-  // ------------------------------------------
-  // 5. Make a wish
-  // ------------------------------------------
-
-  function makeWish() {
-    if (!wishInput || !wishMessage) return;
-
-    const wish = wishInput.value.trim();
-
-    if (!wish) {
-      wishMessage.textContent =
-        "Close your eyes, think of a dream, and write your wish here! 💫";
-      wishInput.focus();
-      return;
-    }
-
-    if (wish.length > 180) {
-      wishMessage.textContent =
-        "Your wish is beautiful! Please keep it under 180 characters. 💗";
-      return;
-    }
-
-    wishMessage.textContent =
-      `✨ Your wish has been planted in the Dreamverse: “${wish}” ` +
-      "May you keep believing in your dreams! 🌱";
-
-    sparkleFromElement(wishBtn, 20);
-    showToast("Your wish is now part of the Dreamverse! 🌠");
-  }
-
-  if (wishBtn) {
-    wishBtn.addEventListener("click", makeWish);
-  }
-
-  if (wishInput) {
-    wishInput.addEventListener("keydown", (event) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-        makeWish();
-      }
-    });
-  }
-
-  // ------------------------------------------
-  // 6. Surprise message
-  // ------------------------------------------
-
-  if (surpriseBtn) {
-    surpriseBtn.addEventListener("click", () => {
-      if (surpriseMessage) {
-        surpriseMessage.textContent = randomItem(surpriseMessages);
-        surpriseMessage.classList.remove("message-pop");
-        void surpriseMessage.offsetWidth;
-        surpriseMessage.classList.add("message-pop");
-      }
-
-      sparkleFromElement(surpriseBtn, 30);
-      showToast("A little surprise just appeared! 🎉");
-    });
-  }
-
-  // ------------------------------------------
-  // 7. Floating background stars
-  // ------------------------------------------
-
-  function createBackgroundStars() {
-    if (!starfield) return;
-
-    const context = starfield.getContext("2d");
-    if (!context) return;
-
-    let width = 0;
-    let height = 0;
-    let stars = [];
-    let animationFrame = null;
-    let lastFrameTime = 0;
-
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    function resizeCanvas() {
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
-
-      width = window.innerWidth;
-      height = window.innerHeight;
-
-      starfield.width = Math.round(width * ratio);
-      starfield.height = Math.round(height * ratio);
-      starfield.style.width = `${width}px`;
-      starfield.style.height = `${height}px`;
-
-      context.setTransform(ratio, 0, 0, ratio, 0, 0);
-
-      const starCount = Math.min(
-        110,
-        Math.max(35, Math.floor((width * height) / 13000))
-      );
-
-      stars = Array.from({ length: starCount }, () => ({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        radius: 0.5 + Math.random() * 1.7,
-        alpha: 0.25 + Math.random() * 0.65,
-        speed: 0.08 + Math.random() * 0.25,
-        phase: Math.random() * Math.PI * 2
-      }));
-
-      drawStars(0);
-    }
-
-    function drawStars(time) {
-      context.clearRect(0, 0, width, height);
-
-      const nightMode = document.body.classList.contains("night-mode");
-
-      stars.forEach((star) => {
-        const twinkle = reducedMotion
-          ? 1
-          : 0.65 + Math.sin(time * 0.0015 + star.phase) * 0.3;
-
-        context.beginPath();
-        context.arc(
-          star.x,
-          star.y,
-          star.radius,
-          0,
-          Math.PI * 2
-        );
-
-        context.fillStyle = nightMode
-          ? `rgba(255,255,255,${star.alpha * twinkle})`
-          : `rgba(173,125,220,${star.alpha * twinkle * 0.55})`;
-
-        context.fill();
-
-        if (!reducedMotion) {
-          star.y -= star.speed * 0.15;
-
-          if (star.y < -3) {
-            star.y = height + 3;
-            star.x = Math.random() * width;
-          }
-        }
-      });
-    }
-
-    function animate(time) {
-      if (document.hidden) {
-        animationFrame = null;
-        return;
-      }
-
-      // Limit animation work on slower devices.
-      if (time - lastFrameTime >= 40) {
-        drawStars(time);
-        lastFrameTime = time;
-      }
-
-      animationFrame = requestAnimationFrame(animate);
-    }
-
-    function startAnimation() {
-      if (reducedMotion || animationFrame !== null) return;
-      animationFrame = requestAnimationFrame(animate);
-    }
-
-    function stopAnimation() {
-      if (animationFrame !== null) {
-        cancelAnimationFrame(animationFrame);
-        animationFrame = null;
-      }
-    }
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        stopAnimation();
-      } else {
-        startAnimation();
-      }
-    });
-
-    window.addEventListener("resize", resizeCanvas);
-
-    resizeCanvas();
-    startAnimation();
-  }
-
-  createBackgroundStars();
-
-  // ------------------------------------------
-  // 8. Small accessibility and startup details
-  // ------------------------------------------
-
-  if (toast) {
-    toast.setAttribute("role", "status");
-    toast.setAttribute("aria-live", "polite");
-  }
-
-  if (wishMessage) {
-    wishMessage.setAttribute("aria-live", "polite");
-  }
-
-  if (gardenMessage) {
-    gardenMessage.setAttribute("aria-live", "polite");
-  }
-
-  if (surpriseMessage) {
-    surpriseMessage.setAttribute("aria-live", "polite");
-  }
-
-  // Remove animation classes after use.
-  document.addEventListener("animationend", (event) => {
-    const target = event.target;
-
-    if (
-      target instanceof HTMLElement &&
-      target.classList.contains("message-pop")
-    ) {
-      target.classList.remove("message-pop");
-    }
-  });
-
-  // Friendly welcome.
-  window.addEventListener("load", () => {
-    showToast("Welcome to Mimo’s Dreamverse! ✨");
-  });
-
-})();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff65b9">
+  <meta name="description" content="Enter Mimo's Dreamverse — a magical world of baby Mimo, glowing stars, wishes, flowers and surprises.">
+
+  <title>Mimo's Dreamverse ✨</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <!-- Animated background -->
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <a class="logo" href="#home">✨ Mimo's Dreamverse</a>
+
+    <nav aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#meet">Meet Mimo</a>
+      <a href="#garden">Dream Garden</a>
+      <a href="#gift">Dream Gift</a>
+      <button id="nightToggle" type="button" aria-pressed="false">
+        🌙 Night
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+      <div class="hero-text">
+        <p class="eyebrow">✨ A little friend from a magical universe</p>
+
+        <h1>
+          Meet <span>Mimo</span><br>
+          The Star Keeper!
+        </h1>
+
+        <p class="intro">
+          A fluffy little friend carrying one glowing star
+          and a universe full of magic, kindness and dreams. 💖
+        </p>
+
+        <div class="actions">
+          <a class="button primary" href="#gift">
+            Open Your Gift 🎁
+          </a>
+
+          <button class="button secondary" id="helloBtn" type="button">
+            Say Hello 👋
+          </button>
+        </div>
+
+        <p id="helloMessage" aria-live="polite">
+          Psst... Mimo has a surprise for you!
+        </p>
+
+        <div class="stats">
+          <div>
+            <strong>∞</strong>
+            <span>Dreams</span>
+          </div>
+          <div>
+            <strong>⭐</strong>
+            <span>Magic</span>
+          </div>
+          <div>
+            <strong>💗</strong>
+            <span>Kindness</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="character-area">
+        <span class="floating star-one" aria-hidden="true">⭐</span>
+        <span class="floating heart" aria-hidden="true">💖</span>
+        <span class="floating moon" aria-hidden="true">🌙</span>
+        <span class="floating sparkle" aria-hidden="true">✨</span>
+
+        <button class="baby-card" id="mimoCard" type="button"
+                aria-label="Tap Mimo for a magical message">
+          <img
+            src="assets/mimo-star-baby.png"
+            alt="Mimo, a fluffy pink magical baby creature holding a glowing rainbow star"
+          >
+          <span class="image-label">Tap Mimo for magic ✨</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- MEET MIMO -->
+    <section class="section" id="meet">
+      <p class="eyebrow center">YOUR NEW LITTLE FRIEND</p>
+
+      <h2 class="section-title">
+        Small Fluff.<br>
+        <span>Big Magic.</span>
+      </h2>
+
+      <p class="section-intro">
+        Mimo collects kind thoughts and turns them into tiny stars.
+        Every little act of kindness makes the Dreamverse brighter.
+      </p>
+
+      <div class="features">
+        <article class="feature pink">
+          <div class="feature-icon">💗</div>
+          <h3>A Heart of Fluff</h3>
+          <p>Mimo's favourite mission is making people smile.</p>
+        </article>
+
+        <article class="feature blue">
+          <div class="feature-icon">🌟</div>
+          <h3>The Star Keeper</h3>
+          <p>A magical star filled with hope, wonder and happiness.</p>
+        </article>
+
+        <article class="feature yellow">
+          <div class="feature-icon">☁️</div>
+          <h3>The Dream Traveller</h3>
+          <p>Mimo travels across clouds delivering little surprises.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- INTERACTIVE DREAM GARDEN -->
+    <section class="section dream-garden" id="garden">
+      <p class="eyebrow center">A LITTLE WORLD OF WONDER</p>
+
+      <h2 class="section-title">
+        Mimo's <span>Dream Garden</span> 🌸
+      </h2>
+
+      <p class="section-intro">
+        Tap the garden to grow magical flowers.
+        Find all five hidden stars to unlock Mimo's secret gift!
+      </p>
+
+      <div class="garden-stats">
+        <span>🌸 Flowers: <strong id="flowerCount">0</strong></span>
+        <span>⭐ Stars: <strong id="starCount">0 / 5</strong></span>
+      </div>
+
+      <div class="garden-area" id="gardenArea"
+           aria-label="Interactive magical garden">
+        <div class="garden-hill hill-one" aria-hidden="true"></div>
+        <div class="garden-hill hill-two" aria-hidden="true"></div>
+        <span class="garden-hint">Tap the garden to grow flowers ✨</span>
+      </div>
+
+      <p class="garden-message" id="gardenMessage" aria-live="polite">
+        Mimo is waiting for your magic!
+      </p>
+
+      <button class="button primary" id="gardenReset" type="button">
+        Grow a New Garden 🌱
+      </button>
+
+      <div class="treasure-box" id="treasureBox" hidden>
+        <div class="treasure-icon">🎁</div>
+
+        <h3>You Found Every Star!</h3>
+
+        <p>
+          Mimo's secret message: You make the world more magical. 💖
+        </p>
+
+        <button class="button secondary" id="claimGift" type="button">
+          Open Secret Gift ✨
+        </button>
+
+        <p id="gardenGiftMessage" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- PERSONAL WISH GIFT -->
+    <section class="section gift-section" id="gift">
+      <div class="gift-panel">
+        <div class="gift-image">
+          <img
+            src="assets/mimo-star-baby.png"
+            alt="Mimo holding a magical glowing star"
+            loading="lazy"
+          >
+        </div>
+
+        <div class="gift-content">
+          <p class="eyebrow">A LITTLE GIFT FOR YOU</p>
+
+          <h2>
+            Your Pocketful<br>
+            <span>of Magic 🎁</span>
+          </h2>
+
+          <p>
+            Write a wish and send it into Mimo's magical universe.
+            Your little moment deserves a little sparkle.
+          </p>
+
+          <label for="wishInput">Make a little wish</label>
+
+          <div class="wish-row">
+            <input
+              id="wishInput"
+              type="text"
+              maxlength="100"
+              placeholder="I wish for more kindness..."
+              autocomplete="off"
+            >
+
+            <button class="button primary" id="wishBtn" type="button">
+              Send ✨
+            </button>
+          </div>
+
+          <p id="wishMessage" aria-live="polite">
+            Your magical wish is waiting to be written. 💗
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL SURPRISE -->
+    <section class="final-section">
+      <div class="big-star" aria-hidden="true">✦</div>
+
+      <p class="eyebrow">A SECRET MESSAGE FROM MIMO</p>
+
+      <h2>
+        You make this universe<br>
+        <span>more magical.</span>
+      </h2>
+
+      <p>
+        A little reminder that kindness, hope and imagination matter.
+      </p>
+
+      <button class="button white-button" id="surpriseBtn" type="button">
+        Open Your Surprise 🎁
+      </button>
+
+      <p id="surpriseMessage" aria-live="polite"></p>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <span>Made with code, kindness and stardust ✨</span>
+    <a href="#home">Back to the stars ↑</a>
+  </footer>
+
+  <!-- Interactive notifications -->
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
