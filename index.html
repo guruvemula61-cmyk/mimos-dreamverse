@@ -1,25 +1,107 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#fff4fa">
-  <meta name="description" content="Meet Mimo, the tiny star keeper of a magical dream universe.">
-  <title>Mimo's Dreamverse ✨</title>
+  <meta name="description" content="Explore Mimo's Dreamverse, a magical universe of stars, dreams and imagination.">
+  <title>Mimo's Dreamverse ✦</title>
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
+  <header class="navbar">
+    <a class="brand" href="#home">✦ MIMO<span>VERSE</span></a>
+
+    <nav aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#about">Meet Mimo</a>
+      <a href="#dreams">Dreams</a>
+    </nav>
+
+    <a class="nav-button" href="#dreams">Explore ✨</a>
+  </header>
+
   <main>
-    <p>✦ A LITTLE UNIVERSE OF BIG DREAMS ✦</p>
+    <section class="hero" id="home">
+      <div class="hero-copy">
+        <span class="eyebrow">✧ YOUR NEW LITTLE HAPPY PLACE ✧</span>
 
-    <h1>Welcome to Mimo's Dreamverse</h1>
+        <h1>A tiny star.<br>A <span>universe</span><br>of dreams.</h1>
 
-    <p>A tiny baby. A universe of big dreams.</p>
+        <p>
+          Meet Mimo, your fluffy little dream keeper.
+          Every star has a story, and every story begins with you.
+        </p>
 
-    <p>
-      Somewhere between the stars and the clouds,
-      a little dream keeper is waiting to meet you.
-    </p>
+        <div class="hero-actions">
+          <a class="primary-button" href="#about">Meet Mimo <span>♡</span></a>
+          <a class="secondary-button" href="#dreams">Explore the magic ↗</a>
+        </div>
+
+        <p class="tiny-note">Made of stardust, tiny wishes & big feelings.</p>
+      </div>
+
+      <div class="character-stage" id="about">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+
+        <span class="spark spark-one">✦</span>
+        <span class="spark spark-two">✧</span>
+        <span class="spark spark-three">✦</span>
+
+        <div class="character-card">
+          <div class="character-face" id="mimo" role="img" aria-label="Mimo, a fluffy pink dream creature">
+            <div class="antenna antenna-left"><span></span></div>
+            <div class="antenna antenna-right"><span></span></div>
+            <div class="ear ear-left"></div>
+            <div class="ear ear-right"></div>
+            <div class="eye eye-left"><i></i></div>
+            <div class="eye eye-right"><i></i></div>
+            <div class="cheek cheek-left"></div>
+            <div class="cheek cheek-right"></div>
+            <div class="mouth"></div>
+            <div class="belly-star">✦</div>
+          </div>
+
+          <div class="character-caption">
+            <span class="online-dot"></span>
+            <span> Mimo is dreaming...</span>
+          </div>
+        </div>
+
+        <div class="floating-note note-top">little wishes ✧</div>
+        <div class="floating-note note-bottom">sending you hugs ♡</div>
+      </div>
+    </section>
+
+    <section class="intro-section" id="dreams">
+      <span class="eyebrow">✦ A WORLD MADE FOR YOU ✦</span>
+      <h2>Small creature.<br><span>Endless wonder.</span></h2>
+      <p>
+        This is Mimo's little corner of the universe.
+        Tap the button to say hello and discover a little magic.
+      </p>
+
+      <div class="magic-actions">
+        <button class="primary-button" id="hello-mimo" type="button">
+          Say hello to Mimo ♡
+        </button>
+        <button class="secondary-button" id="wish-star" type="button">
+          Make a little wish ✦
+        </button>
+      </div>
+
+      <p id="mimo-message" class="message" aria-live="polite">
+        Psst... Mimo loves making new friends.
+      </p>
+    </section>
   </main>
+
+  <footer>
+    <p>Made with ♡ in Mimo's Dreamverse</p>
+    <span>Every little dream matters. ✦</span>
+  </footer>
 </body>
 </html>
